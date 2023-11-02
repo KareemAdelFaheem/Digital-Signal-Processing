@@ -2,9 +2,8 @@ from tkinter import *
 import tkinter.font as font
 import subprocess
 
-# github testing 
+
 class main_window:
-    insta=0
     def __init__(self, windowroot):
         self.dialog = windowroot
         self.window.geometry("400x400")
@@ -24,7 +23,6 @@ class main_window:
         self.week1button.pack()
         self.week2button.pack()
         self.week3button.pack()
-    
 
     def week1(self):
         subprocess.run(["python", "Week1/week1.py"], check=True)
@@ -35,10 +33,12 @@ class main_window:
     def week3(self):
         subprocess.run(["python", "Week3/week3.py"], check=True)
 
+
 def main():
     window = Tk()
     main_window(window)
     window.mainloop()
+
 
 if __name__ == "__main__":
     main()
