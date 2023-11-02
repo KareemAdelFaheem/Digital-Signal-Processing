@@ -2,10 +2,11 @@ from tkinter import *
 import tkinter.font as font
 import subprocess
 
-
+# github testing 
 class main_window:
+    insta=0
     def __init__(self, windowroot):
-        self.window = windowroot
+        self.dialog = windowroot
         self.window.geometry("400x400")
         self.window.title("Digital Signal Processing")
         self.createWidgets()
