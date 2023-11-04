@@ -13,7 +13,7 @@ def FourierTransform():
 
 
 buttonFont = font.Font(family='Helvetica', size=10, weight='bold')
-FourierButton = Button(dialog, text="Quantize", width="13",
+FourierButton = Button(dialog, text="Fourier", width="13",
                         height="3", command=FourierTransform, font=buttonFont)
 
 FourierButton.pack(pady=(20,20))
