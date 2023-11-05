@@ -4,7 +4,7 @@ import subprocess
 
 dialog = Tk()
 dialog.title("Week 4")
-dialog.geometry("750x750")
+dialog.geometry("400x400")
 
 def FourierTransform():
     subprocess.run(["python", "Week4\Fouriertransform.py"], check=True)

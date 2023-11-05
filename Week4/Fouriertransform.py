@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 import numpy as np
 import matplotlib.pyplot as plt
-import signalcompare as tst
+# import Signals.signalcompare as tst
 
 root = Tk()
 root.title("Week 4")
@@ -16,24 +16,28 @@ def Fourier_transform():
     amplitude = []
     phase = []
     sigma = []
-
+   
     signal = filedialog.askopenfilename(
         initialdir="Lab 4/Test Cases",
         title="Which Signal ?",
     )
     chk = int(np.loadtxt(signal, skiprows = 1, max_rows = 1))
 
+
     with open(signal, "r") as f:
         for i in range(3): 
             next(f)
-
+        
         for line in f:
+            line=line.replace('f',' ')
+            line=line.replace(',',' ')
             parts = line.strip().split()
             xValues.append(float(parts[0]))
             yValues.append(float(parts[1]))
 
+   
     N = len(yValues)
-    
+    # if chk ==0 then DFT if 1 then IDFT
     if (chk == 0):
         xOfn = yValues
         j = 1j
@@ -77,6 +81,12 @@ def Fourier_transform():
         DFT[1].bar(sigma, phase)
         DFT[1].set_title("Frequency / Phase")
 
+        with open("polarform",mode="wt")as file:
+
+            for i in range(0,len(amplitude)):
+                file.write(f"{amplitude[i]}   {phase[i]}\n")
+        file.close()
+
     else:
         real = []
         img = []
@@ -92,7 +102,6 @@ def Fourier_transform():
             for k in range (0, N):
                 harmonic_value += (1 / N) * xOfk[k] * np.exp((j * 2 * np.pi * n * k) / N)
             xOfn.append(harmonic_value)
-
         # output = np.loadtxt("Lab 4\Test Cases\IDFT\Output_Signal_IDFT.txt", skiprows=3, delimiter=' ')
         # tst_output = output[:, 1]
         # if tst.SignalComapreAmplitude(xOfn, tst_output):
@@ -102,7 +111,9 @@ def Fourier_transform():
         plt.xlabel("time")
         plt.ylabel("amplitude")
         plt.title("IDFT")
+    
     plt.show()
+
 
 freq_label = Label(root, text="Enter the Sampling Frequency in HZ", pady=40)
 freq = Text(root, width=20, height=2)
