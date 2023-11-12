@@ -36,11 +36,11 @@ def multiplication():
 
     # test multiplication signal1 by 5
     SignalSamplesAreEqual(
-        "Outputsignals/MultiplySignalByConstant-Signal1 - by 5.txt", x_value, y_multi)
+        "Signals\Outputsignals\MultiplySignalByConstant-Signal1 - by 5.txt", x_value, y_multi)
 
     # test multiplication signal2 by 10
     SignalSamplesAreEqual(
-        "Outputsignals/MultiplySignalByConstant-signal2 - by 10.txt", x_value, y_multi)
+        "Signals\Outputsignals\MultiplySignalByConstant-signal2 - by 10.txt", x_value, y_multi)
 
     fig, multi = plt.subplots(2, 1, figsize=(6, 8))
 

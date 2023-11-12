@@ -39,12 +39,12 @@ def normalization():
 
     # test normalize signal 1
     SignalSamplesAreEqual(
-        "Outputsignals/normalize of signal 1 -- output.txt", xSignal, yNormalized
+        "Signals\Outputsignals\normalize of signal 1 -- output.txt", xSignal, yNormalized
     )
 
     # test normalize signal 2
     SignalSamplesAreEqual(
-        "Outputsignals/normlize signal 2 -- output.txt", xSignal, yNormalized
+        "Signals\Outputsignals\normlize signal 2 -- output.txt", xSignal, yNormalized
     )
 
     fig, nrm = plt.subplots(2, 1, figsize=(6, 8))

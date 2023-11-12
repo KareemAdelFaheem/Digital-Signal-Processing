@@ -50,9 +50,9 @@ def addition():
         newy_value.append(y1_value[i] + y2_value[i])
 
     SignalSamplesAreEqual(
-        "Outputsignals/Signal1+signal2.txt", x_value, newy_value)
+        "Signals\Outputsignals\Signal1+signal2.txt", x_value, newy_value)
     SignalSamplesAreEqual(
-        "Outputsignals/signal1+signal3.txt", x_value, newy_value)
+        "Signals\Outputsignals\signal1+signal3.txt", x_value, newy_value)
 
     figure, add = plt.subplots(3, 1, figsize=(6, 8))
 

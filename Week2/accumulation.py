@@ -36,7 +36,7 @@ def accumulation():
 
     # test accumulation
     SignalSamplesAreEqual(
-        "Outputsignals/output accumulation for signal1.txt",
+        "Signals\Outputsignals\output accumulation for signal1.txt",
         xSignal,
         yAccumulated,
     )

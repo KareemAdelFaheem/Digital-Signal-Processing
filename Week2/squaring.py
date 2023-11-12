@@ -32,7 +32,7 @@ def square():
 
     # test squaring
     SignalSamplesAreEqual(
-        "Outputsignals/Output squaring signal 1.txt", xSignal, ySquared)
+        "Signals\Outputsignals\Output squaring signal 1.txt", xSignal, ySquared)
 
     fig, sqr = plt.subplots(2, 1, figsize=(6, 8))
 
