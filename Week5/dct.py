@@ -42,7 +42,7 @@ def DCT():
         file.close()
 
     # Testing
-    tst.SignalSamplesAreEqual("Lab 5\DCT\DCT_output.txt", amplitude)
+    tst.SignalSamplesAreEqual("Signals\Outputsignals\DCT_output.txt", amplitude)
 
 
 frame = Frame(root)

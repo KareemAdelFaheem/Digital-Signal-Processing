@@ -34,7 +34,7 @@ def DC_REMOVE():
         dc.append(i - mean)
 
     # Testing
-    tst.SignalSamplesAreEqual("Lab 5\Remove DC component\DC_component_output.txt", dc)
+    tst.SignalSamplesAreEqual("Signals\Outputsignals\DC_component_output.txt", dc)
 
     fig, DC = plt.subplots(2, 1, figsize=(6, 8))
     DC[0].plot(ySignal)
