@@ -15,7 +15,7 @@ def Sharpening():
     signal1 = filedialog.askopenfilename(
         initialdir="A:\Programming\Python dsp tasks\Final Task\Signals\InputSignals", title="Which Signal")
 
-    signal2 = filedialog.askopenfilename(
+    signal2 = filedialog.askopenfilename(   
         initialdir="A:\Programming\Python dsp tasks\Final Task\Signals\InputSignals", title="Which Signal")
 
     with open(signal1, 'r') as f:
