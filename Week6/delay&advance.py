@@ -26,13 +26,12 @@ def Delay_or_Advance():
             xSignal.append(float(parts[0]))
             ySignal.append(float(parts[1]))
 
-    const = int(txt.get(1.0, 'end'))
-    fow = var1.get()
 
     def folding():
         for i in range(len(ySignal) - 1, -1, -1):
             yFolded.append(ySignal[i])
 
+    fow = var1.get()
 
     if (fow == 'Only Folding'):
         folding()
@@ -42,8 +41,10 @@ def Delay_or_Advance():
         shift[1].plot(xSignal, yFolded)
         shift[1].set_title("Shifted signal")
         plt.show()
+    
+    const = int(txt.get(1.0, 'end'))
 
-    elif (fow == 'Shifting With Folding'):
+    if (fow == 'Shifting With Folding'):
         folding()
         for i in range(len(xSignal)):
             xShFo.append(xSignal[i] + const)
@@ -54,7 +55,7 @@ def Delay_or_Advance():
         shift[1].set_title("Shifted signal")
         plt.show()
 
-    else: # shifting without folding
+    elif (fow == 'Shifting Without Folding'): # shifting without folding
         for i in range(len(xSignal)):
             xShFo.append(xSignal[i] - const)
         figure, shift = plt.subplots(2, 1, figsize=(6, 8))

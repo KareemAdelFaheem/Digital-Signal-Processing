@@ -26,8 +26,7 @@ def Folding():
             ysignal.append(float(parts[1]))
 
     for i in range(len(ysignal)):
-
-        FoldedSignal.append(ysignal[-1-i])
+        FoldedSignal.append(xsignal[-1-i])
     
     figure, add = plt.subplots(2, 1, figsize=(6, 8))
 
@@ -37,7 +36,6 @@ def Folding():
     add[1].set_title("Folded Signal")
 
     plt.show()
-    print(FoldedSignal)
 
     
 

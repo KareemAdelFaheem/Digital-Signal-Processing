@@ -1,15 +1,18 @@
 from tkinter import *
 from tkinter import filedialog
 import comparesignals as tst
+import matplotlib.pyplot as plt
 
 
 dialog = Tk()
 dialog.geometry("250x250")
 dialog.title("Smoothing")
 
+# 1,3,5,7,9,11,13,15,17,19
+
 
 def Smoothing():
-    xsignal=[]
+    xsignal = []
     ysignal = []
     smoothedsignal = []
 
@@ -23,22 +26,24 @@ def Smoothing():
             parts = line.strip().split()
             xsignal.append(float(parts[0]))
             ysignal.append(float(parts[1]))
-   
-    windowsize = int(Nofstrides.get("1.0", END))
-   
 
-    for i in range(0,len(ysignal)-windowsize+1): # 1,3,5,7,9,11,13,15
+    windowsize = int(Nofstrides.get("1.0", END))
+
+    for i in range(0, len(ysignal)-windowsize + 1):
         Smoothedvalue = 0
         for j in range(i, i+windowsize):
             Smoothedvalue += ysignal[j]
 
         smoothedsignal.append(Smoothedvalue/windowsize)
 
-    tst.SignalSamplesAreEqual("Signals\Outputsignals\OutMovAvgTest1.txt",xsignal,smoothedsignal)
+    tst.SignalSamplesAreEqual(
+        "Signals\Outputsignals\OutMovAvgTest1.txt", xsignal, smoothedsignal)
+    tst.SignalSamplesAreEqual(
+        "Signals\Outputsignals\OutMovAvgTest2.txt", xsignal, smoothedsignal)
 
 
 frm = Frame(dialog)
-txtLabel = LabelFrame(frm, text="Enter number of Strides")
+txtLabel = LabelFrame(frm, text="Enter the Window Size")
 Nofstrides = Text(txtLabel, width=50, height=2)
 btn = Button(dialog, text="Smooth", width=20, height=4, command=Smoothing)
 
@@ -47,4 +52,3 @@ txtLabel.pack()
 Nofstrides.pack()
 btn.pack(pady=40)
 dialog.mainloop()
-

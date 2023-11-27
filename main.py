@@ -6,7 +6,7 @@ import subprocess
 class main_window:
     def __init__(self, windowroot):
         self.window = windowroot
-        self.window.geometry("750x400")
+        self.window.geometry("750x500")
         self.window.title("Digital Signal Processing")
         self.createWidgets()
 
