@@ -13,19 +13,18 @@ def Sharpening():
     subprocess.run(["python", "Week6/Sharpening.py"], check=True)
 
 def DelayingOrAdvancing():
-    subprocess.run(["python", "Week6/DelayingorAdvancing.py"], check=True)
+    subprocess.run(["python", "Week6/delay&advance.py"], check=True)
     
-def Floding():
-    subprocess.run(["python", "Week2/squaring.py"], check=True)
+def Folding():
+    subprocess.run(["python", "Week6\Folding.py"], check=True)
     
-def DorAfloded():
-    subprocess.run(["python", "Week2/shifting.py"], check=True)
+
     
 def DC():
-    subprocess.run(["python", "Week2/normalization.py"], check=True)
+    subprocess.run(["python", "Week6/remove_dc.py"], check=True)
     
 def Convolution():
-    subprocess.run(["python", "Week2/accumulation.py"], check=True)
+    subprocess.run(["python", "Week6\convolution.py"], check=True)
 
 
 buttonFont = font.Font(family='Helvetica', size=10, weight='bold')
@@ -40,10 +39,9 @@ DelayorAdvancebutton = Button(dialog, text="Delay&Advance", width="13",
                               height="3", command=DelayingOrAdvancing, font=buttonFont)
 
 Flodingbutton = Button(dialog, text="Folding", width="13",
-                              height="3", command=Floding, font=buttonFont)
+                              height="3", command=Folding, font=buttonFont)
 
-DelayorAdvancefoldedbutton = Button(dialog, text="Delay&AdvanceFolded", width="13",
-                              height="3", command=DorAfloded, font=buttonFont)
+
 
 DCbutton = Button(dialog, text="DC Component", width="13",
                               height="3", command=DC, font=buttonFont)
@@ -56,7 +54,6 @@ smottingbutton.pack(pady=(20,20))
 Sharpeningbutton.pack(pady=(0,20))
 DelayorAdvancebutton.pack(pady=(0,20))
 Flodingbutton.pack(pady=(0,20))
-DelayorAdvancefoldedbutton.pack(pady=(0,20))
 DCbutton.pack(pady=(0,20))
 Convolutionbutton.pack(pady=(0,20))
 

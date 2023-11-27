@@ -1,11 +1,14 @@
 from tkinter import *
 from tkinter import filedialog
+import ConvTest as tst
+
+
 dialog = Tk()
 dialog.geometry("250x250")
 dialog.title("Convolution")
 
 
-def Sharpening():
+def Convolution():
     xsignal1 = []
     xsignal2 = []
     ysignal1 = []
@@ -34,17 +37,12 @@ def Sharpening():
             xsignal2.append(int(parts[0]))
             ysignal2.append(float(parts[1]))
 
-    min = xsignal1[0]+xsignal2[0]
-    max = xsignal1[len(xsignal1)-1]+xsignal2[len(xsignal2)-1]
-
-    for k in range(min, max):
-        for n in range(min, max):
-            convsignal.append(ysignal1[k]*ysignal2[xsignal2.index(n-k)])
-
-    print(convsignal)
 
 
-btn = Button(dialog, text="Sharpen", width=20, height=4, command=Sharpening)
+    
+
+
+btn = Button(dialog, text="Convolve", width=20, height=4, command= Convolution)
 
 
 btn.pack(pady=40)
