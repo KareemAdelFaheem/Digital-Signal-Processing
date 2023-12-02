@@ -8,19 +8,23 @@ dialog = Tk()
 dialog.title("Correlation")
 dialog.geometry("400x400")
 
+correlationsignal = []
+xsignal1 = []
+
 
 def Correlation():
-    xsignal1 = []
+    global xsignal1
     xsignal2 = []
     ysignal1 = []
     ysignal2 = []
     r = []
-    correlationsignal = []
+    global correlationsignal
+
     signal1 = filedialog.askopenfilename(
-        initialdir="A:/Programming\Python dsp tasks/Final Task\Signals/InputSignals", title="Which Signal")
+        initialdir="A:/Programming/Python dsp tasks/Final Task/Signals/InputSignals", title="Which Signal")
 
     signal2 = filedialog.askopenfilename(
-        initialdir="A:/Programming\Python dsp tasks/Final Task\Signals/InputSignals", title="Which Signal")
+        initialdir="A:/Programming/Python dsp tasks/Final Task/Signals/InputSignals", title="Which Signal")
 
     with open(signal1, 'r') as f:
         for i in range(3):
@@ -61,12 +65,17 @@ def Correlation():
     for i in r:
         correlationsignal.append(i/denominator)
 
+
+def compare():
     print(correlationsignal)
-    tst.Compare_Signals("Signals\Outputsignals\CorrOutput.txt",
+    tst.Compare_Signals("Signals/Outputsignals/CorrOutput.txt",
                         xsignal1, correlationsignal)
 
 
 Corrbutton = Button(dialog, width=17, height=4,
                     text="Correlation", command=Correlation)
-Corrbutton.pack(pady=150)
+compbutton = Button(dialog, width=17, height=4,
+                    text="Compare", command=compare)
+Corrbutton.pack(pady=50)
+compbutton.pack()
 dialog.mainloop()
