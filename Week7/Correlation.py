@@ -64,18 +64,22 @@ def Correlation():
 
     for i in r:
         correlationsignal.append(i/denominator)
-
-
-def compare():
+    
     print(correlationsignal)
     tst.Compare_Signals("Signals/Outputsignals/CorrOutput.txt",
                         xsignal1, correlationsignal)
 
+    
+# def compare():
+#     print(correlationsignal)
+#     tst.Compare_Signals("Signals/Outputsignals/CorrOutput.txt",
+#                         xsignal1, correlationsignal)
+
 
 Corrbutton = Button(dialog, width=17, height=4,
                     text="Correlation", command=Correlation)
-compbutton = Button(dialog, width=17, height=4,
-                    text="Compare", command=compare)
+# compbutton = Button(dialog, width=17, height=4,
+#                     text="Compare", command=compare)
 Corrbutton.pack(pady=50)
-compbutton.pack()
+# compbutton.pack()
 dialog.mainloop()
