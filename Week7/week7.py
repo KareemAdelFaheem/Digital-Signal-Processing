@@ -12,7 +12,7 @@ def Correlation():
 
 
 def Time_analysis():
-    subprocess.run(["python", "Week6/Sharpening.py"], check=True)
+    subprocess.run(["python", "Week7/Time_analysis.py"], check=True)
 
 
 def Template_Matching():

@@ -5,7 +5,7 @@ import numpy as np
 
 
 dialog = Tk()
-dialog.title("Correlation")
+dialog.title("Time Analysis")
 dialog.geometry("400x400")
 
 
@@ -14,8 +14,8 @@ def Correlation():
     xsignal2 = []
     ysignal1 = []
     ysignal2 = []
-    r = []
     correlationsignal = []
+    TimeDelay=0
 
     signal1 = filedialog.askopenfilename(
         initialdir="A:/Programming/Python dsp tasks/Final Task/Signals/InputSignals", title="Which Signal")
@@ -48,28 +48,27 @@ def Correlation():
             if (n+j) >= N:
                 d -= N
             value += ysignal1[n]*ysignal2[d]
-        r.append(value/N)
+        correlationsignal.append(value/N)
 
-    denominator = 0
-    y1square = 0
-    y2square = 0
-    for j in range(0, N):
-        y1square += np.power(ysignal1[j], 2)
-        y2square += np.power(ysignal2[j], 2)
+    maxindex = 0
+    maxvalue = 0
+    for i in correlationsignal:
+        if i >= maxvalue:
+            maxvalue = i
 
-    denominator = (np.sqrt(y1square*y2square))/N
-
-    for i in r:
-        correlationsignal.append(i/denominator)
-    
-    print(correlationsignal)
-    tst.Compare_Signals("Signals/Outputsignals/CorrOutput.txt",
-                        xsignal1, correlationsignal)
-
-    
+    maxindex = correlationsignal.index(maxvalue)
+    TimeDelay=maxindex/int(Fs.get("1.0",END))
+    print(TimeDelay)
 
 
 Corrbutton = Button(dialog, width=17, height=4,
-                    text="Correlation", command=Correlation)
+                    text="Time delay", command=Correlation)
+f = Frame(dialog)
+lbl = LabelFrame(f, text="Enter Sampling frequency")
+Fs = Text(lbl, width=50, height=2)
+
+f.pack(pady=10)
+Fs.pack()
+lbl.pack()
 Corrbutton.pack(pady=50)
 dialog.mainloop()
