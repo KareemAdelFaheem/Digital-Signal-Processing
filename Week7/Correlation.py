@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 import comparesignal2 as tst
 import numpy as np
-import Correlationcomp as corr
+import Correlationcomponent as corr
 
 dialog = Tk()
 dialog.title("Correlation")

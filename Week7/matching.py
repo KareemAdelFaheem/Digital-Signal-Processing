@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
-import Correlationcomp as corr
+import Correlationcomponent as corr
 import numpy as np
 
 root = Tk()
