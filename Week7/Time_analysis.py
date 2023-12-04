@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
-import CompareSignal as tst
+# import comparesignal2 as tst
 import numpy as np
 
 
