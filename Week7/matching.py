@@ -4,7 +4,7 @@ import Correlationcomponent as corr
 import numpy as np
 
 root = Tk()
-root.title("Time Analysis")
+root.title("Signal Matching")
 root.geometry("300x200")
 
 
