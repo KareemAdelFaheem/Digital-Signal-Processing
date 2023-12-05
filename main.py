@@ -34,7 +34,7 @@ class main_window:
         self.week4button.place(x=330, y=190)
         self.week5button.place(x=330, y=250)
         self.week6button.place(x=330, y=310)
-        self.week7button.place(x=330, y=310)
+        self.week7button.place(x=330, y=370)
     
 
     def week1(self):
