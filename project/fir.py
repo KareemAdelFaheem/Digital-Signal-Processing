@@ -3,41 +3,48 @@ from tkinter import filedialog
 import numpy as np
 import matplotlib.pyplot as plt
 import utils as ut
-import comparesignal2 as tst
+import CompareSignal as tst
 
 root = Tk()
 root.title("Filtering")
 root.geometry("500x500")
 
+N = 0
+flag1 = 0
+flag2 = 0
+
 w = []
 h = []
-N = 0
-signal = []
+indices = []
 
 def Window_Method():
     global N
+    global indices
+
     N = 0
-    N = int(N)
     w.clear()
+    indices.clear()
 
     attenutation = int(stopbandtxt.get(1.0, "end"))
     transition = int(transitiontxt.get(1.0, "end"))
     samplingfreq = int(samplingfrequencytxt.get(1.0, "end"))
 
     if (attenutation <= 21):
-        N = np.ceil((samplingfreq*0.9)/transition)
+        N = np.ceil((samplingfreq * 0.9) / transition)
         if (N % 2 == 0):
             N += 1
 
         for i in range(int(0 - ((N-1)/2)), int(((N-1)/2) + 1)):
+            indices.append(i)
             w.append(1)
 
     elif (attenutation <= 44):
-        N = np.ceil((samplingfreq*3.1)/transition)
+        N = np.ceil((samplingfreq * 3.1) / transition)
         if (N % 2 == 0):
             N += 1
 
         for i in range(int(0 - ((N-1)/2)), int(((N-1)/2) + 1)):
+            indices.append(i)
             w.append(0.5 + (0.5 * np.cos((2 * np.pi * i) / N)))
 
     elif (attenutation <= 53):
@@ -46,6 +53,7 @@ def Window_Method():
             N += 1
 
         for i in range(int(0 - ((N-1)/2)), int(((N-1)/2) + 1)):
+            indices.append(i)
             w.append(0.54 + (0.46 * np.cos((2 * np.pi * i) / N)))
 
     elif (attenutation <= 74):
@@ -54,13 +62,14 @@ def Window_Method():
             N += 1
 
         for i in range(int(0 - ((N-1)/2)), int(((N-1)/2) + 1)):
-            w.append(0.42 + (0.5 * np.cos((2 * np.pi * i) / (N - 1))) +
-                     (0.08 * np.cos((4 * np.pi * i) / (N - 1))))
+            indices.append(i)
+            w.append(0.42 + (0.5 * np.cos((2 * np.pi * i) / (N - 1))) + (0.08 * np.cos((4 * np.pi * i) / (N - 1))))
 
     return w
 
 
 def Filter_Type():
+    global flag1
     global N
     N = int(N)
     h.clear()
@@ -74,16 +83,17 @@ def Filter_Type():
     Fc2 = 0
 
     if (filtertype == 0): # Low Pass Filter
-        Fc1 = (f1+(transition/2))/samplingfreq
+        flag1 = 1
+        Fc1 = (f1 + (transition / 2)) / samplingfreq
         for i in range(int(0 - ((N-1)/2)), int(((N-1)/2) + 1)):
             if (i == 0):
                 h.append(2 * Fc1)
                 continue
-
             h.append(2 * Fc1 * ((np.sin(i * (2 * np.pi * Fc1))) / (i * (2 * np.pi * Fc1))))
 
     elif (filtertype == 1): # High Pass Filter
-        Fc1 = (f1-(transition/2))/samplingfreq
+        flag1 = 2
+        Fc1 = (f1 - (transition / 2)) / samplingfreq
         for i in range(int(0 - ((N-1)/2)), int(((N-1)/2) + 1)):
             if (i == 0):
                 h.append(1 - (2 * Fc1))
@@ -91,45 +101,47 @@ def Filter_Type():
             h.append(-2 * Fc1 * (np.sin(i * (2 * np.pi * Fc1)) / (i * (2 * np.pi * Fc1))))
 
     elif (filtertype == 2): # Band Pass Filter
-        Fc1 = (f1-(transition/2))/samplingfreq
-        Fc2 = (f2+(transition/2))/samplingfreq
+        flag1 = 3
+        Fc1 = (f1 - (transition / 2)) / samplingfreq
+        Fc2 = (f2 + (transition / 2)) / samplingfreq
 
         for i in range(int(0 - ((N-1)/2)), int(((N-1)/2) + 1)):
             if (i == 0):
                 h.append(2 * (Fc2 - Fc1))
                 continue
-
-            h.append((2 * Fc2 * (np.sin(i * (2 * np.pi * Fc2)) / (i * (2 * np.pi * Fc2)))) -
-                     (2 * Fc1 * (np.sin(i * (2 * np.pi * Fc1)) / (i * (2 * np.pi * Fc1)))))
+            h.append((2 * Fc2 * (np.sin(i * (2 * np.pi * Fc2)) / (i * (2 * np.pi * Fc2)))) - (2 * Fc1 * (np.sin(i * (2 * np.pi * Fc1)) / (i * (2 * np.pi * Fc1)))))
 
     elif (filtertype == 3): # Band Reject Filter
-        Fc1 = (f1+(transition/2))/samplingfreq
-        Fc2 = (f2-(transition/2))/samplingfreq
+        flag1 = 4
+        Fc1 = (f1 + (transition / 2)) / samplingfreq
+        Fc2 = (f2 - (transition / 2)) / samplingfreq
 
         for i in range(int(0 - ((N-1)/2)), int(((N-1)/2) + 1)):
             if (i == 0):
                 h.append(1 - (2 * (Fc2 - Fc1)))
                 continue
-
-            h.append((2 * Fc1 * (np.sin(i * (2 * np.pi * Fc1)) / (i * (2 * np.pi * Fc1)))) -
-                     (2 * Fc2 * (np.sin(i * (2 * np.pi * Fc2)) / (i * (2 * np.pi * Fc2)))))
+            h.append((2 * Fc1 * (np.sin(i * (2 * np.pi * Fc1)) / (i * (2 * np.pi * Fc1)))) - (2 * Fc2 * (np.sin(i * (2 * np.pi * Fc2)) / (i * (2 * np.pi * Fc2)))))
 
     return h
 
 
 def Filtering():
+    global flag2
+    flag2 = 0
     w = Window_Method()
     h = Filter_Type()
     result = ut.multiply(w, h)
-    # print(result)
+    test(indices, result)
     plot(h, result)
-    tst.SignalSamplesAreEqual("Signals/Project signal/Testcase1/LPFCoefficients.txt",result)
-    tst.SignalSamplesAreEqual("Signals/Project signal/Testcase3/HPFCoefficients.txt",result)
-    tst.SignalSamplesAreEqual("Signals/Project signal/Testcase5/BPFCoefficients.txt",result)
-    tst.SignalSamplesAreEqual("Signals/Project signal/Testcase7/BSFCoefficients.txt",result)
+    
 
 
 def Filtering_Uploaded_Signal():
+    global flag1
+    global flag2
+    flag1 = 0
+    flag2 = 1
+
     ySignal = []
     signalresult = []
     result = []
@@ -152,13 +164,9 @@ def Filtering_Uploaded_Signal():
     h = Filter_Type()
     result = ut.multiply(w, h)
     signalresult = ut.fast_convolution(result, ySignal)
-    print(signalresult)
+    test(indices, signalresult)
     plot(ySignal, signalresult)
-
-    tst.SignalSamplesAreEqual("Signals/Project signal/Testcase2/ecg_low_pass_filtered.txt",signalresult)
-    tst.SignalSamplesAreEqual("Signals/Project signal/Testcase4/ecg_high_pass_filtered.txt",signalresult)
-    tst.SignalSamplesAreEqual("Signals/Project signal/Testcase6/ecg_band_pass_filtered.txt",signalresult)
-    tst.SignalSamplesAreEqual("Signals/Project signal/Testcase8/ecg_band_stop_filtered.txt",signalresult)
+    
 
 def plot(orginal, filtered):
     fig, fir = plt.subplots(2, 1, figsize=(6, 8))
@@ -167,6 +175,26 @@ def plot(orginal, filtered):
     fir[1].plot(filtered)
     fir[1].set_title("Filtered Signal")
     plt.show()
+
+def test(indices, signal):
+    if (flag2 == 0):
+        if(flag1 == 1):
+            tst.Compare_Signals("Signals/Project signal/FIR/Testcase1/LPFCoefficients.txt", indices, signal)
+        if(flag1 == 2):
+            tst.Compare_Signals("Signals/Project signal/FIR/Testcase3/HPFCoefficients.txt", indices, signal)
+        if(flag1 == 3):
+            tst.Compare_Signals("Signals/Project signal/FIR/Testcase5/BPFCoefficients.txt", indices, signal)
+        if(flag1 == 4):
+            tst.Compare_Signals("Signals/Project signal/FIR/Testcase7/BSFCoefficients.txt", indices, signal)
+    else:
+        if(flag1 == 1):
+            tst.Compare_Signals("Signals/Project signal/FIR/Testcase2/ecg_low_pass_filtered.txt", indices, signal)
+        if(flag1 == 2):
+            tst.Compare_Signals("Signals/Project signal/FIR/Testcase4/ecg_high_pass_filtered.txt", indices, signal)
+        if(flag1 == 3):
+            tst.Compare_Signals("Signals/Project signal/FIR/Testcase6/ecg_band_pass_filtered.txt", indices, signal)
+        if(flag1 == 4):
+            tst.Compare_Signals("Signals/Project signal/FIR/Testcase8/ecg_band_stop_filtered.txt", indices, signal)
 
 frame = Frame(root)
 
