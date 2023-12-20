@@ -25,9 +25,9 @@ def Window_Method():
     w.clear()
     indices.clear()
 
-    attenutation = int(stopbandtxt.get(1.0, "end"))
-    transition = int(transitiontxt.get(1.0, "end"))
     samplingfreq = int(samplingfrequencytxt.get(1.0, "end"))
+    transition = int(transitiontxt.get(1.0, "end"))
+    attenutation = int(stopbandtxt.get(1.0, "end"))
 
     if (attenutation <= 21):
         N = np.ceil((samplingfreq * 0.9) / transition)
@@ -74,11 +74,12 @@ def Filter_Type():
     N = int(N)
     h.clear()
 
-    transition = int(transitiontxt.get(1.0, "end"))
     samplingfreq = int(samplingfrequencytxt.get(1.0, "end"))
+    transition = int(transitiontxt.get(1.0, "end"))
     filtertype = int(Filtertypetxt.get(1.0, "end"))
     f1 = int(F1txt.get(1.0, "end"))
     f2 = int(F2txt.get(1.0, "end"))
+    
     Fc1 = 0
     Fc2 = 0
 
@@ -133,7 +134,6 @@ def Filtering():
     result = ut.multiply(w, h)
     test(indices, result)
     plot(h, result)
-    
 
 
 def Filtering_Uploaded_Signal():
@@ -166,7 +166,6 @@ def Filtering_Uploaded_Signal():
     signalresult = ut.fast_convolution(result, ySignal)
     test(indices, signalresult)
     plot(ySignal, signalresult)
-    
 
 def plot(orginal, filtered):
     fig, fir = plt.subplots(2, 1, figsize=(6, 8))
